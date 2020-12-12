@@ -16,7 +16,15 @@
       <h5>
         Report Card
       </h5>
-      <button>Print</button>
+      <!-- <button>Print</button> -->
+      <div [class.isPrinting]="printService.isPrinting">
+        <div style="text-align:center">
+         
+          <button (click)="onPrintInvoice()">PRINT</button>
+        </div>
+        <router-outlet></router-outlet>
+        <router-outlet name="print"></router-outlet>
+      </div>
       <button>my Assignment</button>
     </div>
     <div class="col-6">
@@ -36,14 +44,18 @@
           <td>
             {{totAttempt}}
           </td>
-          <td>94%</td>
+          <td>
+            {{totAvgPercent}}
+            %</td>
         </tr>
         <tr>
           <td>Completed</td>
           <td>
             {{totCompleted}}
           </td>
-          <td>94%</td>
+          <td>
+            {{totAvgcompPercent}}
+            %</td>
         </tr>
 
       </table>

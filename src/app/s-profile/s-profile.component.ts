@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PrintService } from '../shared/print.service';
 import { StudentService } from '../shared/student.service';
 
 @Component({
@@ -43,7 +44,8 @@ export class SProfileComponent implements OnInit {
   totReport: any;
   totAttempt: number = 0;
   totCompleted: any;
-  totAvgPercent: any;
+  totAvgPercent: number =0;
+  totAvgcompPercent: number;
       // this.fromdate = this.d;
 
 
@@ -60,36 +62,30 @@ export class SProfileComponent implements OnInit {
       let d = new Date();
       let td = new Date();
       td1 = this.formatDate(td);
-      console.log('Today is: ' + d.toLocaleString() + td1);
       d.setDate(d.getDate() - 356);
       d1 = this.formatDate(d);
-      console.log('3 days ago was: ' + d.toLocaleString() + d1);
     
     } else if (val.duration == 2) {
       let d = new Date();
       let td = new Date();
       td1 = this.formatDate(td);
-      console.log('Today is: ' + d.toLocaleString() + td1);
       d.setDate(d.getDate() - 28);
       d1 = this.formatDate(d);
-      console.log('3 days ago was: ' + d.toLocaleString() + d1);
       this.fromdate = this.d;
 
     } else if (val.duration == 3) {
       let d = new Date();
       let td = new Date();
       td1 = this.formatDate(td);
-      console.log('Today is: ' + d.toLocaleString() + td1);
       d.setDate(d.getDate() - 7);
       d1 = this.formatDate(d);
-      console.log('3 days ago was: ' + d.toLocaleString() + d1);
 
     }
     const argno = " AND report_grade=" + val.grade + " AND report_subj=" + val.language
     + " AND report_level="+ val.class +" AND report_date BETWEEN "+  d1 + " and "+ td1;
     this.getReportCard(argno)
   }
-  constructor(private stud: StudentService) { }
+  constructor(private stud: StudentService, public printService: PrintService) { }
 
   ngOnInit(): void {
     var td = new Date();
@@ -106,6 +102,11 @@ export class SProfileComponent implements OnInit {
     this.getlessons();
     this.getDuration();
     this.getUnit();
+  }
+  onPrintInvoice() {
+    const invoiceIds = ['101', '102'];
+    this.printService
+      .printDocument('invoice', invoiceIds);
   }
   formatDate(date) {
   var d = new Date(date),
@@ -173,8 +174,11 @@ export class SProfileComponent implements OnInit {
 
       dataRes.forEach(element => {
         this.totAttempt += Number(element.report_attempt);
-        this.totAvgPercent = this.totAvgPercent + element.report_mark /100;
+        this.totAvgPercent = this.totAvgPercent + Number(element.report_mark);
       });
+      this.totAvgcompPercent = this.totAvgPercent / this.totCompleted;
+      this.totAvgPercent = this.totAvgPercent/this.totAttempt;
+
     })
   }
   getReportCard(no) {
@@ -182,6 +186,11 @@ export class SProfileComponent implements OnInit {
     this.stud.getListId("students_report",key).subscribe((dataRes) => {
       console.log(dataRes);
       this.student_report = [];
+      this.gradeName = '';
+      this.report_subj = '';
+      this.unit_name = '';
+      this.class_name = '';
+
       if(dataRes.length > 0) {
 
       this.gradeName = dataRes[0].report_grade;

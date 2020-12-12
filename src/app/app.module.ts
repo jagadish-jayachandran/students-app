@@ -12,10 +12,15 @@ import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentService } from './shared/student.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PrintService } from './shared/print.service';
+import { PrintLayoutComponent } from './print-layout/print-layout.component';
+import { InvoiceComponent } from './invoice/invoice.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SProfileComponent
+    SProfileComponent,
+    PrintLayoutComponent,
+    InvoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
    
 
   ],
-  providers: [StudentService],
+  providers: [StudentService,PrintService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
