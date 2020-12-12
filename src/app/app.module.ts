@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card'; 
 import { MatTableModule } from '@angular/material/table'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StudentService } from './shared/student.service';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     // BrowserAnimationsModule,
     FormsModule,
-
+    HttpClientModule,
     ReactiveFormsModule,
     MatSliderModule,
     MatTableModule,
@@ -30,7 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
    
 
   ],
-  providers: [],
+  providers: [StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
