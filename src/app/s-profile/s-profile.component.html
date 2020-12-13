@@ -14,7 +14,7 @@
       <table>
         <tr>
           <th colspan="3">
-            PAGE REPORT
+          Language Arts PAGE REPORT
           </th>
         </tr>
         <tr>
@@ -185,7 +185,32 @@
         </button>
         </td>
       </tr>
+      <tfoot *ngIf="student_report !== undefined">
+        <tr>
+          <th>
+            Total
+          </th>
+          <td></td>
+          <td></td>
+     
+      
+
+          <td>
+            {{toAvgAttem}}
+          </td>
+              <td>
+                {{
+                            totAvgMarks 
+                          }} %
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+        </tr>
+      </tfoot>
     </table>
+
   </div>
 </div>
 </div>

@@ -46,6 +46,8 @@ export class SProfileComponent implements OnInit {
   totCompleted: any;
   totAvgPercent: number =0;
   totAvgcompPercent: number;
+  totAvgMarks: number = 0;
+  toAvgAttem: number = 0;
       // this.fromdate = this.d;
 
 
@@ -224,13 +226,19 @@ export class SProfileComponent implements OnInit {
         }
       });
       dataRes.forEach(element => {
+          this.totAvgMarks += Number(element.report_mark);
+          this.toAvgAttem += Number(element.report_attempt) 
+
         this.lessonList.forEach(lesson => {
           if (element.report_lesson == lesson.lesson_no)   
           element.report_lesson = lesson.lesson_name
         });
         
       });
-      this.student_report = dataRes;
+        this.student_report = dataRes;
+
+
+      this.totAvgMarks = this.totAvgMarks / this.student_report.length;
     }
 
     })
