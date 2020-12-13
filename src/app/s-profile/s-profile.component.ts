@@ -15,10 +15,10 @@ export class SProfileComponent implements OnInit {
   // classList: any = ['Intermediate']
 
   form = new FormGroup({
-    grade: new FormControl('', Validators.required),
+    // grade: new FormControl('', Validators.required),
     language: new FormControl('', Validators.required),
     duration:new FormControl(''),
-    class: new FormControl('', Validators.required)
+    // class: new FormControl('', Validators.required)
 
   });
   profile_name: any;
@@ -81,8 +81,8 @@ export class SProfileComponent implements OnInit {
       d1 = this.formatDate(d);
 
     }
-    const argno = " AND report_grade=" + val.grade + " AND report_subj=" + val.language
-    + " AND report_level="+ val.class +" AND report_date BETWEEN "+  d1 + " and "+ td1;
+    const argno =  " AND report_subj=" + val.language
+    + " AND report_date BETWEEN "+  d1 + " and "+ td1;
     this.getReportCard(argno)
   }
   constructor(private stud: StudentService, public printService: PrintService) { }

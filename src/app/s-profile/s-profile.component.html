@@ -2,31 +2,14 @@
   
 <div class="top-header">
   <h3>
-    REPORT CARD
+   STUDENTS REPORT CARD
   </h3>
   <h4>
-    {{dd | date: 'fullDate'}} to
-    {{today | date: 'fullDate'}} 
+   Academic year {{dd | date: 'mediumDate'}} to
+    {{today | date: 'mediumDate'}} 
   </h4>
   <div class="row m-2">
-    <div class="col-6">
-      <h5>
-        {{profile_name | uppercase}}
-      </h5>
-      <h5>
-        Report Card
-      </h5>
-      <!-- <button>Print</button> -->
-      <div [class.isPrinting]="printService.isPrinting">
-        <div style="text-align:center">
-         
-          <button (click)="onPrintInvoice()">PRINT</button>
-        </div>
-        <router-outlet></router-outlet>
-        <router-outlet name="print"></router-outlet>
-      </div>
-      <button>my Assignment</button>
-    </div>
+    
     <div class="col-6">
       <table>
         <tr>
@@ -60,6 +43,26 @@
 
       </table>
     </div>
+    <div class="col-6">
+      <h5>
+        {{profile_name | uppercase}}
+      </h5>
+      <h5>
+        <!-- Report Card -->
+      </h5>
+      <!-- <button>Print</button> -->
+      <div [class.isPrinting]="printService.isPrinting">
+        <div style="text-align:center">
+    
+          <button (click)="onPrintInvoice()" class="btn btn-primary">
+            Print Report Card
+          </button>
+        </div>
+        <router-outlet></router-outlet>
+        <router-outlet name="print"></router-outlet>
+      </div>
+      <button class="btn btn-warning">My Assignment</button>
+    </div>
   </div>
 </div>
 
@@ -67,138 +70,100 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
 
     <div class="row">
-      <div class="col-2">
+      <!-- <div class="col-2">
         <div class="form-group">
-
-          <!-- <label for="grade">grade:</label> -->
-
           <select formControlName="grade" class="form-control">
-
-            <!-- <option disabled>Select Grade</option> -->
-
             <option value="">Choose grade</option>
-
             <option *ngFor="let grade of gradeList" value={{grade.grade_no}}>{{grade.grade_name}}</option>
-
           </select>
-
           <div *ngIf="f.grade.touched && f.grade.invalid" class="alert alert-danger">
-
             <div *ngIf="f.grade.errors.required">grade is required.</div>
-
           </div>
-
         </div>
-      </div>
+      </div> -->
       <div class="col-2">
         <div class="form-group">
 
-          <!-- <label for="language">Language:</label> -->
 
           <select formControlName="language" class="form-control">
-
-            <!-- <option disabled>Select Language</option> -->
-
-            <option value="">Choose Language</option>
-
+            <option disabled>Select Subject</option>
+            <option value="">Choose Subject</option>
             <option *ngFor="let language of languageList" value={{language.sub_no}}>{{language.sub_name}}</option>
-
           </select>
-
           <div *ngIf="f.language.touched && f.language.invalid" class="alert alert-danger">
-
-            <div *ngIf="f.language.errors.required">Language is required.</div>
-
+            <div *ngIf="f.language.errors.required">Subject is required.</div>
           </div>
-
         </div>
       </div>
       <div class="col-2">
         <div class="form-group">
-
-          <!-- <label for="duration">duration:</label> -->
-
           <select formControlName="duration" class="form-control">
-
             <option disabled>Select Duration</option>
-
-            <option value="">Choose duration</option>
-
+            <option value="">Choose Duration</option>
             <option *ngFor="let duration of durationList" value={{duration.duration_no}}>{{duration.duration_name}}</option>
-
           </select>
-
           <div *ngIf="f.duration.touched && f.duration.invalid" class="alert alert-danger">
-
             <div *ngIf="f.duration.errors.required">Duration is required.</div>
-
           </div>
-
         </div>
       </div>
-      <div class="col-2">
+      <!-- <div class="col-2">
         <div class="form-group">
-
-          <!-- <label for="class">Class:</label> -->
-
+          <label for="class">Class:</label>
           <select formControlName="class" class="form-control">
-
             <option disabled>Select Class</option>
-
             <option value="">Choose Class</option>
-
             <option *ngFor="let class of classList" value={{class.level_no}}>{{class.level_name}}</option>
-
           </select>
-
           <div *ngIf="f.class.touched && f.class.invalid" class="alert alert-danger">
-
             <div *ngIf="f.class.errors.required">Class is required.</div>
-
           </div>
-
         </div>
-      </div>
-
-
+      </div> -->
 
       <div class="col-2">
         <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
       </div>
-
     </div>
 
   </form>
   <div>
     <table >
       <tr>
-        <th>Grade</th>
+        <!-- <th>Grade</th> -->
         <th>Subject</th>
         <th>Unit</th>
-        <th>Level</th>
+        <!-- <th>Level</th> -->
         <th>Lesson</th>
         <th>Attempt</th>
         <th>Mark</th>
-        <th>Completed</th>
+        <th>Completion Date</th>
         <th>View</th>
         <th>Redo</th>
       </tr>
-      <tr>
-        <th>
+      <!-- <tr *ngIf="report_subj !== ''"> -->
+        <!-- <th>
           {{gradeName}}
-        </th>
-        <th colspan="3">
+        </th> -->
+        <!-- <th colspan="3">
           {{report_subj}}
         </th>
-        <th colspan="4">
+        <th colspan="7">
           {{unit_name}}
-        </th>
-        <th colspan="2">
+        </th> -->
+        <!-- <th colspan="2">
           {{class_name}}
-        </th>
-      </tr>
+        </th> -->
+      <!-- </tr> -->
       <tr *ngFor="let report of student_report">
-        <td colspan="4"></td>
+        <td>
+          {{report_subj}}
+
+        </td>
+        <td colspan="">
+          {{unit_name}}
+
+        </td>
         <td>
           {{report.report_lesson}}
         </td>
@@ -206,9 +171,9 @@
           {{report.report_attempt}}
         </td>
         <td>
-          {{report.report_mark}}
+          {{report.report_mark}} %
         </td>
-        <td>{{report.report_date}}</td>
+        <td>{{report.report_date | date : 'mediumDate'}}</td>
         <td>
           <button class="btn btn-primary">
           View
@@ -216,7 +181,7 @@
         </td>
         <td>
         <button class="btn btn-warning">
-          Redo
+          Re-Test
         </button>
         </td>
       </tr>

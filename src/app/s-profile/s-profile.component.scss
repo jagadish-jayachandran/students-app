@@ -10,14 +10,16 @@ table {
 }
 
 td, th {
-
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
 }
 th{
   text-align: center;
-
+  border: 2px solid #b6b6b6;
+}
+tr td {
+  text-align: center;
 }
 // tr:nth-child(even) {
   // background-color: #dddddd;
